@@ -14,6 +14,7 @@ end
 require 'webrick/httputils'
 
 if RUBY_ENGINE == 'jruby'
+  require 'webrick/https'
   require 'delegate'
 
   module JRubyWEBrickSSLReadBuffer
