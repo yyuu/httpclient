@@ -11,21 +11,21 @@ class PEMUtilsTest < Test::Unit::TestCase
 
   def test_read_certificate
     assert_nothing_raised do
-      binary = HTTPClient::JRubySSLSocket::PEMUtils.read_certificate(@raw_cert)
+      HTTPClient::JRubySSLSocket::PEMUtils.read_certificate(@raw_cert)
     end
   end
 
   def test_read_certificate_works_with_random_ascii_text_outside_begin_end
     raw_cert_with_ascii = "some text before begin\n" + @raw_cert + "\nsome text after end"
     assert_nothing_raised do
-      binary = HTTPClient::JRubySSLSocket::PEMUtils.read_certificate(raw_cert_with_ascii)
+      HTTPClient::JRubySSLSocket::PEMUtils.read_certificate(raw_cert_with_ascii)
     end
   end
 
   def test_read_certificate_uses_all_content_if_missing_begin_end
     cert = @raw_cert.sub(/-----BEGIN CERTIFICATE-----/, '').sub(/-----END CERTIFICATE-----/, '')
     assert_nothing_raised do
-      binary = HTTPClient::JRubySSLSocket::PEMUtils.read_certificate(cert)
+      HTTPClient::JRubySSLSocket::PEMUtils.read_certificate(cert)
     end
   end
 
