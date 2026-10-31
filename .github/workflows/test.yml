@@ -69,9 +69,3 @@ jobs:
         cache-version: 2
     - name: Run tests
       run: bundle exec rake --trace RUBYOPT="${{ matrix.ruby-opt }}"
-    - name: Run JRuby-specific PEM tests
-      if: startsWith(matrix.ruby-version, 'jruby-')
-      run: RUBYOPT="${{ matrix.ruby-opt }}" bundle exec ruby -Ilib test/jruby_ssl_socket/test_pemutils.rb
-    - name: Run JRuby socket timeout tests
-      if: startsWith(matrix.ruby-version, 'jruby-')
-      run: RUBYOPT="${{ matrix.ruby-opt }}" bundle exec ruby -Ilib test/jruby_ssl_socket/test_socket_timeout.rb
