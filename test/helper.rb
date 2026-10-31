@@ -6,7 +6,11 @@ require 'webrick'
 require 'webrick/httpproxy.rb'
 require 'logger'
 require 'stringio'
-require 'cgi'
+begin
+  require 'cgi/escape'
+rescue LoadError
+  require 'cgi'
+end
 require 'webrick/httputils'
 
 if RUBY_ENGINE == 'jruby'
