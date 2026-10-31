@@ -65,6 +65,21 @@ class TestHTTPClient < Test::Unit::TestCase
     assert(!str.empty?)
   end
 
+  data('mutable' => false, 'frozen' => true)
+  def test_debug_socket_does_not_mutate_binary_input(freeze_payload)
+    debug_dev = StringIO.new
+    socket = Object.new
+    socket.extend(HTTPClient::DebugSocket)
+    socket.debug_dev = debug_dev
+    payload = "\x00".dup
+    payload.freeze if freeze_payload
+
+    assert_nothing_raised { socket.send(:debug, payload) }
+    assert_equal("\x00", payload)
+    assert_equal(Encoding::UTF_8, payload.encoding)
+    assert(!debug_dev.string.empty?)
+  end
+
   def test_protocol_version_http09
     @client.protocol_version = 'HTTP/0.9'
     @client.debug_dev = str = ''.dup
