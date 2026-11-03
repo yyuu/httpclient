@@ -1,14 +1,79 @@
+diff --git a/.github/workflows/flake-diagnostic.yml b/.github/workflows/flake-diagnostic.yml
+new file mode 100644
+index 0000000..8a63a50
+--- /dev/null
++++ b/.github/workflows/flake-diagnostic.yml
+@@ -0,0 +1,57 @@
++name: Diagnose Ruby 3.0 CI timeouts
++
++on:
++  push:
++    branches: [ci/flake-repro]
++
++permissions:
++  contents: read
++
++jobs:
++  diagnose-ruby-3-0:
++    runs-on: ubuntu-24.04
++    timeout-minutes: 30
++    env:
++      CI: '1'
++      REPEAT: '1000'
++      LOAD_WORKERS: '0'
++      TEST_NAMES: test_get_content
++      HTTPCLIENT_PROJECT_ROOT: ${{ github.workspace }}/subject
++      NO_TIMING: '0'
++      TRACE_TIMEOUT_RAISES: '1'
++    steps:
++      - uses: actions/checkout@v7
++      - uses: actions/checkout@v7
++        with:
++          ref: b6a8126a34dca1fbb07c360bd2c71d2915e0d17c
++          path: subject
++      - name: Restore failed job dependency snapshot
++        run: cp script/ci-flake/locks/ruby-3.0.lock subject/Gemfile.lock
++      - uses: ruby/setup-ruby@v1
++        id: ruby
++        with:
++          ruby-version: '3.0.7'
++          bundler: '2.2.33'
++          working-directory: subject
++          bundler-cache: true
++      - name: Record environment
++        run: |
++          mkdir -p evidence
++          {
++            uname -a
++            lscpu
++            git -C subject rev-parse HEAD
++            sha256sum subject/Gemfile.lock
++            cat subject/Gemfile.lock
++          } | tee evidence/environment.log
++      - name: Repeat with timeout instrumentation
++        run: |
++          set -o pipefail
++          bundle exec ruby -w --enable-frozen-string-literal --debug-frozen-string-literal \
++            -Ilib ../script/ci-flake/loaded-repeat.rb 2>&1 | tee ../evidence/instrumented.log
++      - uses: actions/upload-artifact@v4
++        if: ${{ !cancelled() && (success() || failure()) }}
++        with:
++          name: timeout-diagnostics-ruby-3.0
++          path: evidence/
++          retention-days: 14
 diff --git a/.github/workflows/flake-repro.yml b/.github/workflows/flake-repro.yml
 new file mode 100644
-index 0000000..f21f2db
+index 0000000..02dff3e
 --- /dev/null
 +++ b/.github/workflows/flake-repro.yml
-@@ -0,0 +1,100 @@
+@@ -0,0 +1,102 @@
 +name: Reproduce CI timeouts
 +
 +on:
 +  push:
 +    branches: [ci/flake-repro]
++    paths:
++      - 'script/ci-flake/**'
 +  workflow_dispatch:
 +    inputs:
 +      repetitions:

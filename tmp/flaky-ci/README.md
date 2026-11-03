@@ -264,12 +264,27 @@ proxy+EOF sequence, Ruby 3.0 uses `test_get_content`. CPU competitors default
 to zero and can be selected for manual runs. `native-runner.patch` is a
 reviewable bundle of these additions.
 
-YAML parsing and `actionlint` succeeded; execution on GitHub is not yet
-validated. The initial push to `ci/flake-repro` will trigger this workflow,
-because a new `workflow_dispatch` workflow cannot be manually dispatched until
-it is available on the default branch. The same push also triggers the existing
-push workflow. A local topic branch/commit has been created; it is not pushed
-yet, and no PR is being opened.
+Both workflow files passed YAML parsing and `actionlint`. The initial push to
+`yyuu/httpclient:ci/flake-repro` ran the existing test matrix successfully
+(12/12 jobs):
+<https://github.com/yyuu/httpclient/actions/runs/41555367501>.
+
+On native x86_64 Ubuntu 24.04 with the archived source SHAs, ruby/setup-ruby,
+and the exact Bundler/lockfile snapshots, the focused runs reported:
+
+| Ruby | Repetitions | Result |
+| --- | ---: | --- |
+| 2.5.9 | 1,000 each of proxy + both EOF tests; control and timer instrumentation | Pass, 3,000 tests / 3,000 assertions in each mode |
+| 2.6.10 | Same as Ruby 2.5 | Pass, 3,000 tests / 3,000 assertions in each mode |
+| 3.0.7 | `test_get_content`, control | Pass, 1,000 tests / 10,000 assertions in 789.59 s |
+
+No original timeout was reproduced. The first Ruby 3.0.7 run used a 20-minute
+job limit for both control and instrumented repetitions in sequence. The
+control took 789.59 s; GitHub canceled the job during the instrumented pass,
+before it produced an artifact. A dedicated 30-minute Ruby 3.0 diagnostic
+workflow now runs that pass on its own and uploads the timer/elapsed-time trace.
+The first run is <https://github.com/yyuu/httpclient/actions/runs/41555367612>.
+No HTTPClient implementation or test fixture was changed, and no PR was opened.
 
 Current recommendation: collect this targeted, instrumented native x86_64
 evidence before changing timeout behavior or increasing the fixture's timeout.

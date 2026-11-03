@@ -3,6 +3,8 @@ name: Reproduce CI timeouts
 on:
   push:
     branches: [ci/flake-repro]
+    paths:
+      - 'script/ci-flake/**'
   workflow_dispatch:
     inputs:
       repetitions:
