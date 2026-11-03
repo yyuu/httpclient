@@ -45,6 +45,7 @@ jobs:
             cat subject/Gemfile.lock
           } | tee evidence/environment.log
       - name: Repeat with timeout instrumentation
+        working-directory: subject
         run: |
           set -o pipefail
           bundle exec ruby -w --enable-frozen-string-literal --debug-frozen-string-literal \

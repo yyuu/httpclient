@@ -282,9 +282,12 @@ No original timeout was reproduced. The first Ruby 3.0.7 run used a 20-minute
 job limit for both control and instrumented repetitions in sequence. The
 control took 789.59 s; GitHub canceled the job during the instrumented pass,
 before it produced an artifact. A dedicated 30-minute Ruby 3.0 diagnostic
-workflow now runs that pass on its own and uploads the timer/elapsed-time trace.
-The first run is <https://github.com/yyuu/httpclient/actions/runs/41555367612>.
-No HTTPClient implementation or test fixture was changed, and no PR was opened.
+workflow runs that pass on its own and uploads the timer/elapsed-time trace.
+Its first invocation stopped before the test command because the workflow had
+the wrong working directory; the workflow now runs from the archived checkout.
+The first combined run is
+<https://github.com/yyuu/httpclient/actions/runs/41555367612>. No HTTPClient
+implementation or test fixture was changed, and no PR was opened.
 
 Current recommendation: collect this targeted, instrumented native x86_64
 evidence before changing timeout behavior or increasing the fixture's timeout.
