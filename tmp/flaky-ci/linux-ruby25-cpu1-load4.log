@@ -1,0 +1,113 @@
+source=/Users/yyuu/work/repos/git/nahi/httpclient/tmp/flaky-ci/linux-source-b6a8126
+lockfile=/Users/yyuu/work/repos/git/nahi/httpclient/tmp/flaky-ci/ci-locks/ruby-2.5.lock
+image=ruby:2.5.9-buster
+platform=linux/arm64
+Resolving "ruby" using unqualified-search registries (/usr/share/containers/registries.conf.d/999-podman-machine.conf)
+Trying to pull docker.io/library/ruby:2.5.9-buster...
+Getting image source signatures
+Copying blob sha256:0a2a528124d496eac690ecea4b73d72dd78179551e75e187cfa0ac7c770ac001
+Copying blob sha256:86422c44ee005c4d5ccb0e2fa32685229207b712728cd4b8c0ef97174f079df7
+Copying blob sha256:785171b903c4d81c5b7539417a7b05f4a9bc6a35840595233bf4e369d8aee387
+Copying blob sha256:310b368da98207b4fd030cc969461bfba1ea7c73fc5da1f015e05570d3eb2510
+Copying blob sha256:0373cebfde2cc9a301ad49bdd4883de5ab6dd6d5416932aa96428f70fac5000c
+Copying blob sha256:9137877e0c26a439a8954003b21876b6059de852c839631e8cf6fda5bd36434c
+Copying blob sha256:c3a33cab2d4872db2fd3869ceb65055dd1589ceaf39c08e5c6c5e1a9ec96a7c1
+Copying blob sha256:2c4d3bb33ec5c573bc3c7d8bb391e17e6d1929b72b23a9a8e9a834e0a32c90cd
+Copying config sha256:6c574ada214f351680aa6875b8dcde15a24d54f78bcc2be7335fae45cc631463
+Writing manifest to image destination
+Successfully installed bundler-2.3.27
+1 gem installed
+Your RubyGems version (3.0.3) has a bug that prevents `required_ruby_version` from working for Bundler. Any scripts that use `gem install bundler` will break as soon as Bundler drops support for your Ruby version. Please upgrade RubyGems to avoid future breakage and silence this warning by running `gem update --system 3.2.3`
+Your RubyGems version (3.0.3) has a bug that prevents `required_ruby_version` from working for Bundler. Any scripts that use `gem install bundler` will break as soon as Bundler drops support for your Ruby version. Please upgrade RubyGems to avoid future breakage and silence this warning by running `gem update --system 3.2.3`
+Fetching gem metadata from https://rubygems.org/........
+Resolving dependencies...
+Writing lockfile to /tmp/httpclient-replay/Gemfile.lock
+Your RubyGems version (3.0.3) has a bug that prevents `required_ruby_version` from working for Bundler. Any scripts that use `gem install bundler` will break as soon as Bundler drops support for your Ruby version. Please upgrade RubyGems to avoid future breakage and silence this warning by running `gem update --system 3.2.3`
+[DEPRECATED] The `--frozen` flag is deprecated because it relies on being remembered across bundler invocations, which bundler will no longer do in future versions. Instead please use `bundle config set --local frozen 'true'`, and stop using this flag
+Fetching gem metadata from https://rubygems.org/........
+Fetching rake 13.4.2
+Installing rake 13.4.2
+Using bundler 2.3.27
+Fetching coderay 1.1.3
+Fetching logger 1.7.0
+Fetching mutex_m 0.3.0
+Fetching base64 0.3.0
+Fetching unf 0.2.0
+Installing base64 0.3.0
+Installing mutex_m 0.3.0
+Installing logger 1.7.0
+Installing unf 0.2.0 with native extensions
+Installing coderay 1.1.3
+Fetching ostruct 0.6.3
+Fetching method_source 1.1.0
+Installing ostruct 0.6.3
+Installing method_source 1.1.0
+Fetching power_assert 3.1.0
+Installing power_assert 3.1.0
+Fetching rack 2.2.25
+Fetching rubyntlm 0.6.3
+Fetching rubysspi 1.3.1
+Installing rubyntlm 0.6.3
+Installing rack 2.2.25
+Fetching webrick 1.9.2
+Installing rubysspi 1.3.1
+Installing webrick 1.9.2
+Using httpclient 2.10.0 from source at `.` and installing its executables
+Fetching test-unit 3.7.8
+Fetching domain_name 0.5.20190701
+Fetching pry 0.15.2
+Installing domain_name 0.5.20190701
+Fetching rack-ntlm-test-service 0.0.1
+Installing pry 0.15.2
+Fetching http-cookie 1.1.6
+Installing rack-ntlm-test-service 0.0.1
+Installing http-cookie 1.1.6
+Installing test-unit 3.7.8
+Bundle complete! 13 Gemfile dependencies, 20 gems now installed.
+Use `bundle info [gemname]` to see where a bundled gem is installed.
+Your RubyGems version (3.0.3) has a bug that prevents `required_ruby_version` from working for Bundler. Any scripts that use `gem install bundler` will break as soon as Bundler drops support for your Ruby version. Please upgrade RubyGems to avoid future breakage and silence this warning by running `gem update --system 3.2.3`
+load_workers=4 uname=Linux d2b0f868c853 7.1.3-200.fc44.aarch64 #1 SMP PREEMPT_DYNAMIC Sat Jul  4 19:23:52 UTC 2026 aarch64 GNU/Linux
+before /sys/fs/cgroup/cpu.max: 100000 100000
+before /sys/fs/cgroup/cpu.stat: usage_usec 14709578
+user_usec 13711706
+system_usec 997872
+nice_usec 0
+core_sched.force_idle_usec 0
+nr_periods 190
+nr_throttled 4
+throttled_usec 17775
+nr_bursts 0
+burst_usec 0
+before /sys/fs/cgroup/memory.events: low 0
+high 0
+max 0
+oom 0
+oom_kill 0
+oom_group_kill 0
+sock_throttled 0
+ruby 2.5.9p229 (2021-04-05 revision 67939) [aarch64-linux]
+tests=["test_empty_proxy_env", "test_eof_error_length", "test_eof_error_rest"] repetitions=1000 timing=false
+timeout=["/usr/local/lib/ruby/2.5.0/timeout.rb", 75]
+gems=[["base64", "0.3.0"], ["bundler", "2.3.27"], ["coderay", "1.1.3"], ["did_you_mean", "1.2.0"], ["domain_name", "0.5.20190701"], ["http-cookie", "1.1.6"], ["httpclient", "2.10.0"], ["logger", "1.7.0"], ["method_source", "1.1.0"], ["mutex_m", "0.3.0"], ["ostruct", "0.6.3"], ["power_assert", "3.1.0"], ["pry", "0.15.2"], ["rack", "2.2.25"], ["rack-ntlm-test-service", "0.0.1"], ["rake", "13.4.2"], ["rubyntlm", "0.6.3"], ["rubysspi", "1.3.1"], ["test-unit", "3.7.8"], ["unf", "0.2.0"], ["webrick", "1.9.2"]]
+Finished in 30.710447602 seconds.
+3000 tests, 3000 assertions, 0 failures, 0 errors, 0 pendings, 0 omissions, 0 notifications
+elapsed=30.71076493599685
+3000 tests, 3000 assertions, 0 failures, 0 errors, 0 pendings, 0 omissions, 0 notifications
+after /sys/fs/cgroup/cpu.max: 100000 100000
+after /sys/fs/cgroup/cpu.stat: usage_usec 46578578
+user_usec 44220607
+system_usec 2357971
+nice_usec 0
+core_sched.force_idle_usec 0
+nr_periods 508
+nr_throttled 322
+throttled_usec 62743047
+nr_bursts 0
+burst_usec 0
+after /sys/fs/cgroup/memory.events: low 0
+high 0
+max 0
+oom 0
+oom_kill 0
+oom_group_kill 0
+sock_throttled 0

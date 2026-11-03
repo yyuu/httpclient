@@ -1,0 +1,102 @@
+source=/Users/yyuu/work/repos/git/nahi/httpclient/tmp/flaky-ci/linux-source-7062
+lockfile=/Users/yyuu/work/repos/git/nahi/httpclient/tmp/flaky-ci/ci-locks/ruby-2.6.lock
+image=ruby:2.6.10-bullseye
+platform=linux/arm64
+Successfully installed bundler-2.4.22
+1 gem installed
+Your RubyGems version (3.0.3.1) has a bug that prevents `required_ruby_version` from working for Bundler. Any scripts that use `gem install bundler` will break as soon as Bundler drops support for your Ruby version. Please upgrade RubyGems to avoid future breakage and silence this warning by running `gem update --system 3.2.3`
+Your RubyGems version (3.0.3.1) has a bug that prevents `required_ruby_version` from working for Bundler. Any scripts that use `gem install bundler` will break as soon as Bundler drops support for your Ruby version. Please upgrade RubyGems to avoid future breakage and silence this warning by running `gem update --system 3.2.3`
+Fetching gem metadata from https://rubygems.org/........
+Resolving dependencies...
+Writing lockfile to /tmp/httpclient-replay/Gemfile.lock
+Your RubyGems version (3.0.3.1) has a bug that prevents `required_ruby_version` from working for Bundler. Any scripts that use `gem install bundler` will break as soon as Bundler drops support for your Ruby version. Please upgrade RubyGems to avoid future breakage and silence this warning by running `gem update --system 3.2.3`
+[DEPRECATED] The `--frozen` flag is deprecated because it relies on being remembered across bundler invocations, which bundler will no longer do in future versions. Instead please use `bundle config set --local frozen 'true'`, and stop using this flag
+Fetching gem metadata from https://rubygems.org/........
+Fetching rake 13.4.2
+Installing rake 13.4.2
+Fetching base64 0.3.0
+Fetching coderay 1.1.3
+Fetching unf 0.2.0
+Fetching mutex_m 0.3.0
+Fetching io-console 0.9.5
+Installing base64 0.3.0
+Fetching logger 1.7.0
+Installing unf 0.2.0 with native extensions
+Installing mutex_m 0.3.0
+Installing io-console 0.9.5 with native extensions
+Fetching method_source 1.1.0
+Installing coderay 1.1.3
+Installing logger 1.7.0
+Installing method_source 1.1.0
+Fetching ostruct 0.6.3
+Fetching power_assert 3.1.0
+Fetching rack 2.2.25
+Installing power_assert 3.1.0
+Fetching rubysspi 1.3.1
+Installing ostruct 0.6.3
+Installing rubysspi 1.3.1
+Fetching webrick 1.9.2
+Fetching rubyntlm 0.6.5
+Installing rack 2.2.25
+Fetching test-unit 3.7.8
+Installing rubyntlm 0.6.5
+Installing webrick 1.9.2
+Installing test-unit 3.7.8
+Fetching domain_name 0.5.20190701
+Fetching rack-ntlm-test-service 0.0.1
+Installing rack-ntlm-test-service 0.0.1
+Installing domain_name 0.5.20190701
+Fetching http-cookie 1.1.6
+Installing http-cookie 1.1.6
+Fetching reline 0.7.0
+Installing reline 0.7.0
+Fetching pry 0.16.1
+Installing pry 0.16.1
+Bundle complete! 13 Gemfile dependencies, 22 gems now installed.
+Use `bundle info [gemname]` to see where a bundled gem is installed.
+Your RubyGems version (3.0.3.1) has a bug that prevents `required_ruby_version` from working for Bundler. Any scripts that use `gem install bundler` will break as soon as Bundler drops support for your Ruby version. Please upgrade RubyGems to avoid future breakage and silence this warning by running `gem update --system 3.2.3`
+load_workers=0 uname=Linux 0a998e55bb22 7.1.3-200.fc44.aarch64 #1 SMP PREEMPT_DYNAMIC Sat Jul  4 19:23:52 UTC 2026 aarch64 GNU/Linux
+before /sys/fs/cgroup/cpu.max: max 100000
+before /sys/fs/cgroup/cpu.stat: usage_usec 15984690
+user_usec 14618980
+system_usec 1365709
+nice_usec 0
+core_sched.force_idle_usec 0
+nr_periods 0
+nr_throttled 0
+throttled_usec 0
+nr_bursts 0
+burst_usec 0
+before /sys/fs/cgroup/memory.events: low 0
+high 0
+max 0
+oom 0
+oom_kill 0
+oom_group_kill 0
+sock_throttled 0
+ruby 2.6.10p210 (2022-04-12 revision 67958) [aarch64-linux]
+tests=["test_empty_proxy_env", "test_eof_error_length", "test_eof_error_rest"] repetitions=10 timing=false
+timeout=["/usr/local/lib/ruby/2.6.0/timeout.rb", 75]
+gems=[["base64", "0.3.0"], ["bundler", "2.4.22"], ["coderay", "1.1.3"], ["did_you_mean", "1.3.0"], ["domain_name", "0.5.20190701"], ["http-cookie", "1.1.6"], ["httpclient", "2.10.0"], ["io-console", "0.9.5"], ["logger", "1.7.0"], ["method_source", "1.1.0"], ["mutex_m", "0.3.0"], ["ostruct", "0.6.3"], ["power_assert", "3.1.0"], ["pry", "0.16.1"], ["rack", "2.2.25"], ["rack-ntlm-test-service", "0.0.1"], ["rake", "13.4.2"], ["reline", "0.7.0"], ["rubyntlm", "0.6.5"], ["rubysspi", "1.3.1"], ["test-unit", "3.7.8"], ["unf", "0.2.0"], ["webrick", "1.9.2"]]
+Finished in 0.035096955 seconds.
+30 tests, 30 assertions, 0 failures, 0 errors, 0 pendings, 0 omissions, 0 notifications
+elapsed=0.03537232900271192
+30 tests, 30 assertions, 0 failures, 0 errors, 0 pendings, 0 omissions, 0 notifications
+after /sys/fs/cgroup/cpu.max: max 100000
+after /sys/fs/cgroup/cpu.stat: usage_usec 16119108
+user_usec 14724599
+system_usec 1394508
+nice_usec 0
+core_sched.force_idle_usec 0
+nr_periods 0
+nr_throttled 0
+throttled_usec 0
+nr_bursts 0
+burst_usec 0
+after /sys/fs/cgroup/memory.events: low 0
+high 0
+max 0
+oom 0
+oom_kill 0
+oom_group_kill 0
+sock_throttled 0

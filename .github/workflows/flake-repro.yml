@@ -1,0 +1,100 @@
+name: Reproduce CI timeouts
+
+on:
+  push:
+    branches: [ci/flake-repro]
+  workflow_dispatch:
+    inputs:
+      repetitions:
+        description: Repetitions of the selected test sequence
+        default: '1000'
+        required: true
+      load_workers:
+        description: Independent CPU competitors (0 for a control run)
+        type: choice
+        options: ['0', '2', '4']
+        default: '0'
+
+permissions:
+  contents: read
+
+jobs:
+  repeat:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - ruby: '2.5.9'
+            lock: '2.5'
+            bundler: '2.3.27'
+            source: b6a8126a34dca1fbb07c360bd2c71d2915e0d17c
+            tests: test_empty_proxy_env,test_eof_error_length,test_eof_error_rest
+          - ruby: '2.6.10'
+            lock: '2.6'
+            bundler: '2.4.22'
+            source: 7062fd252c7db0c66b76ba8662043864dbdb52bb
+            tests: test_empty_proxy_env,test_eof_error_length,test_eof_error_rest
+          - ruby: '3.0.7'
+            lock: '3.0'
+            bundler: '2.2.33'
+            source: b6a8126a34dca1fbb07c360bd2c71d2915e0d17c
+            tests: test_get_content
+    env:
+      CI: '1'
+      REPEAT: ${{ inputs.repetitions || '1000' }}
+      LOAD_WORKERS: ${{ inputs.load_workers || '0' }}
+      TEST_NAMES: ${{ matrix.tests }}
+      HTTPCLIENT_PROJECT_ROOT: ${{ github.workspace }}/subject
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ matrix.source }}
+          path: subject
+      - name: Restore failed job dependency snapshot
+        env:
+          LOCK_VERSION: ${{ matrix.lock }}
+        run: cp "script/ci-flake/locks/ruby-$LOCK_VERSION.lock" subject/Gemfile.lock
+      - uses: ruby/setup-ruby@v1
+        id: ruby
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler: ${{ matrix.bundler }}
+          working-directory: subject
+          bundler-cache: true
+      - name: Record environment
+        run: |
+          mkdir -p evidence
+          {
+            uname -a
+            lscpu
+            git -C subject rev-parse HEAD
+            sha256sum subject/Gemfile.lock
+            cat subject/Gemfile.lock
+          } | tee evidence/environment.log
+      - name: Repeat without timeout instrumentation
+        working-directory: subject
+        env:
+          NO_TIMING: '1'
+        run: |
+          set -o pipefail
+          bundle exec ruby -w --enable-frozen-string-literal --debug-frozen-string-literal \
+            -Ilib ../script/ci-flake/loaded-repeat.rb 2>&1 | tee ../evidence/control.log
+      - name: Repeat with timeout instrumentation
+        if: ${{ !cancelled() && steps.ruby.outcome == 'success' }}
+        working-directory: subject
+        env:
+          NO_TIMING: '0'
+          TRACE_TIMEOUT_RAISES: '1'
+        run: |
+          set -o pipefail
+          bundle exec ruby -w --enable-frozen-string-literal --debug-frozen-string-literal \
+            -Ilib ../script/ci-flake/loaded-repeat.rb 2>&1 | tee ../evidence/instrumented.log
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() && (success() || failure()) }}
+        with:
+          name: timeout-evidence-ruby-${{ matrix.ruby }}
+          path: evidence/
+          retention-days: 14
